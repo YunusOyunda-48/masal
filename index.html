@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>İyi ki Doğdun!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="./assets/index-CVVIQydY.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DvwkFBmH.css">
+  </head>
+  <body>
+    <!-- Loading Screen (Date Reveal) -->
+    <div id="loader" class="loader">
+      <div class="loader-content">
+        <div class="date-text" id="dateText">1 Ocak 2026</div>
+        <div class="loading-bar"></div>
+      </div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="background-glow"></div>
+    <div class="fireflies"></div>
+
+    <!-- Corner Flowers -->
+    <div class="flower top-left">🌸</div>
+    <div class="flower top-right">🌺</div>
+    <div class="flower bottom-left">🌷</div>
+    <div class="flower bottom-right">🌻</div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="title">İyi ki<br>Doğdun!</h1>
+          <p class="subtitle">Masal'a özel hazırlandı...</p>
+          
+          <!-- Interactive Gift -->
+          <div class="gift-container">
+            <div class="gift-box" id="giftBox">
+              <div class="gift-lid"></div>
+              <div class="gift-body"></div>
+              <div class="gift-ribbon-vertical"></div>
+              <div class="gift-ribbon-horizontal"></div>
+              <div class="click-me">Tıkla!</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reveal Section (Hidden initially) -->
+      <section class="reveal-section hidden" id="revealSection">
+        <div class="glass-card">
+          <h2 id="cardTitle">Yeni Yaşın Kutlu Olsun!</h2>
+          <p class="message" id="cardMessage">
+            Nice senelere, mutluluklar dilerim! Yazdan önce sınavlarının da çok iyi geçmesi dileğiyle...
+          </p>
+          
+          <div class="photo-gallery">
+            <div class="photo-frame">
+              <!-- Using placeholders. User can replace in public/images/photo1.png -->
+              <img src="./images/photo1.png" onerror="this.src='https://placehold.co/400x500/2a1b38/e78fb3?text=Fotograf+1'" alt="Fotoğraf 1">
+              <div class="photo-pin"></div>
+            </div>
+            <div class="photo-frame tilt-right">
+              <!-- Using placeholders. User can replace in public/images/photo2.png -->
+              <img src="./images/photo2.png" onerror="this.src='https://placehold.co/400x500/2a1b38/e78fb3?text=Fotograf+2'" alt="Fotoğraf 2">
+              <div class="photo-pin"></div>
+            </div>
+          </div>
+
+          <div class="scroll-indicator">
+            <p>Daha fazlası için kaydır</p>
+            <div class="arrow">↓</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Extra Scroll Content -->
+      <section class="extra-section hidden" id="extraSection">
+        <div class="cake-container">
+          <div class="cake">
+            <div class="candle">
+              <div class="flame"></div>
+            </div>
+            <div class="cake-top"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-bottom"></div>
+          </div>
+          <h3>Doğum Günün Kutlu Olsun!</h3>
+        </div>
+      </section>
+
+    </main>
+
+  </body>
+</html>
