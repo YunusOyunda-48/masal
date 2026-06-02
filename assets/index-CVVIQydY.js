@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Start Date Animation Logic AFTER late screen fades
     setTimeout(() => {
+      loader.classList.add('start-anim'); // TRIGGER CSS ANIMATIONS
+      
       let currentDate = new Date(2026, 0, 1); // 1 Ocak 2026
       const targetDate = new Date(2026, 5, 1); // 1 Haziran 2026
       

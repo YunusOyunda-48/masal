@@ -55,6 +55,17 @@
         from { opacity: 0; }
         to { opacity: 1; }
       }
+      /* Prevent loader animations until button click */
+      #loader .date-text, #loader .loading-bar {
+        animation: none !important;
+        opacity: 0;
+      }
+      #loader.start-anim .date-text {
+        animation: 2s forwards revealDate !important;
+      }
+      #loader.start-anim .loading-bar {
+        animation: 2.5s forwards loadBar !important;
+      }
     </style>
   </head>
   <body>
