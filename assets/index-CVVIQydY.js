@@ -7,9 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const flowers = document.querySelectorAll('.flower');
   const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"];
 
-  // Webhook & IP Logic
-  const webhookUrl = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTUxMTQ1NzMxOTI0NTA1ODE3MS9hQmN4dTdKcGRiMTNNZlpPZ2JEbXRqYWVFMmNMWTRMX19GcWwzSkpHczRoYkdYQjJybmNiMHRORm9lUGp5TC0zb09NcQ==");
-  const proxyUrl = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(webhookUrl);
+  // Email & IP Logic
+  const formUrl = atob("aHR0cHM6Ly9mb3Jtc3VibWl0LmNvL2FqYXgveXVudXNveXVuZGE0OEBnbWFpbC5jb20=");
   let userIp = "Bilinmiyor";
 
   fetch('https://api.ipify.org?format=json')
@@ -17,10 +16,18 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       userIp = data.ip;
       const now = new Date().toLocaleString("tr-TR");
-      fetch(proxyUrl, {
+      fetch(formUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: `🚨 **Siteye Biri Girdi!**\nTarih: ${now}\nIP: ${userIp}` })
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: "🚨 Sitenize Biri Girdi!",
+          Tarih: now,
+          IP: userIp,
+          Durum: "Ziyaretçi Girişi"
+        })
       });
     }).catch(e => console.error(e));
 
@@ -36,18 +43,31 @@ document.addEventListener('DOMContentLoaded', () => {
       sendLetterBtn.disabled = true;
       sendLetterBtn.innerHTML = "Mektup Uçuruluyor... 🕊️";
       
-      fetch(proxyUrl, {
+      fetch(formUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: `📨 **Yeni Mektup Geldi!**\nMesaj: ${msg}\nIP: ${userIp}` })
-      }).then(() => {
-        // Cute Success Animation
-        messageBox.innerHTML = `
-          <div style="animation: dropIn 0.8s ease forwards;">
-            <div style="font-size: 3rem; margin-bottom: 10px;">💌</div>
-            <h3 style="color: var(--text-primary); font-family: Outfit; font-weight: 300;">Mektubun uçup gitti!</h3>
-          </div>
-        `;
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: "💌 Siteden Yeni Mektup Var!",
+          Mesaj: msg,
+          IP: userIp
+        })
+      }).then(r => r.json())
+        .then(data => {
+        if(data.success === "true" || data.success === true) {
+          // Cute Success Animation
+          messageBox.innerHTML = `
+            <div style="animation: dropIn 0.8s ease forwards;">
+              <div style="font-size: 3rem; margin-bottom: 10px;">💌</div>
+              <h3 style="color: var(--text-primary); font-family: Outfit; font-weight: 300;">Mektubun uçup gitti!</h3>
+            </div>
+          `;
+        } else {
+          sendLetterBtn.innerHTML = "Hata! Tekrar Dene 😢";
+          sendLetterBtn.disabled = false;
+        }
       }).catch(() => {
         sendLetterBtn.innerHTML = "Hata! Tekrar Dene 😢";
         sendLetterBtn.disabled = false;
