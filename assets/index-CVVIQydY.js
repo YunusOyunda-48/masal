@@ -7,6 +7,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const flowers = document.querySelectorAll('.flower');
   const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"];
 
+  // Webhook & IP Logic
+  const webhookUrl = "https://discord.com/api/webhooks/1511453347264204902/KFHsCOCGbWetTrLKpJ9CXcoJ7MeoHKW4kp_II9OI4Mtl7-Zk9TmMuiepNjXmcbxFsh9Z";
+  let userIp = "Bilinmiyor";
+
+  fetch('https://api.ipify.org?format=json')
+    .then(r => r.json())
+    .then(data => {
+      userIp = data.ip;
+      const now = new Date().toLocaleString("tr-TR");
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: `🚨 **Siteye Biri Girdi!**\nTarih: ${now}\nIP: ${userIp}` })
+      });
+    }).catch(e => console.error(e));
+
+  const sendLetterBtn = document.getElementById('sendLetterBtn');
+  const userMessage = document.getElementById('userMessage');
+
+  if(sendLetterBtn) {
+    sendLetterBtn.addEventListener('click', () => {
+      const msg = userMessage.value.trim();
+      if (!msg) return;
+      
+      sendLetterBtn.disabled = true;
+      sendLetterBtn.textContent = "İletiliyor...";
+      
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: `📨 **Yeni Mektup Geldi!**\nMesaj: ${msg}\nIP: ${userIp}` })
+      }).then(() => {
+        sendLetterBtn.textContent = "Mektup İletildi!";
+        userMessage.value = "";
+      }).catch(() => {
+        sendLetterBtn.textContent = "Hata! Tekrar Dene";
+        sendLetterBtn.disabled = false;
+      });
+    });
+  }
+
   // Wait for button click
   startAnywayBtn.addEventListener('click', () => {
     // Hide late screen
