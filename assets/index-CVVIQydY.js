@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Webhook & IP Logic
   const webhookUrl = "https://discord.com/api/webhooks/1511453347264204902/KFHsCOCGbWetTrLKpJ9CXcoJ7MeoHKW4kp_II9OI4Mtl7-Zk9TmMuiepNjXmcbxFsh9Z";
+  const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(webhookUrl);
   let userIp = "Bilinmiyor";
 
   fetch('https://api.ipify.org?format=json')
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       userIp = data.ip;
       const now = new Date().toLocaleString("tr-TR");
-      fetch(webhookUrl, {
+      fetch(proxyUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: `🚨 **Siteye Biri Girdi!**\nTarih: ${now}\nIP: ${userIp}` })
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sendLetterBtn = document.getElementById('sendLetterBtn');
   const userMessage = document.getElementById('userMessage');
+  const messageBox = document.querySelector('.message-box');
 
   if(sendLetterBtn) {
     sendLetterBtn.addEventListener('click', () => {
@@ -32,17 +34,22 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!msg) return;
       
       sendLetterBtn.disabled = true;
-      sendLetterBtn.textContent = "İletiliyor...";
+      sendLetterBtn.innerHTML = "Mektup Uçuruluyor... 🕊️";
       
-      fetch(webhookUrl, {
+      fetch(proxyUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content: `📨 **Yeni Mektup Geldi!**\nMesaj: ${msg}\nIP: ${userIp}` })
       }).then(() => {
-        sendLetterBtn.textContent = "Mektup İletildi!";
-        userMessage.value = "";
+        // Cute Success Animation
+        messageBox.innerHTML = `
+          <div style="animation: dropIn 0.8s ease forwards;">
+            <div style="font-size: 3rem; margin-bottom: 10px;">💌</div>
+            <h3 style="color: var(--text-primary); font-family: Outfit; font-weight: 300;">Mektubun uçup gitti!</h3>
+          </div>
+        `;
       }).catch(() => {
-        sendLetterBtn.textContent = "Hata! Tekrar Dene";
+        sendLetterBtn.innerHTML = "Hata! Tekrar Dene 😢";
         sendLetterBtn.disabled = false;
       });
     });
