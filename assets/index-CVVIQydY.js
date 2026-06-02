@@ -1,1 +1,109 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})(),document.addEventListener(`DOMContentLoaded`,()=>{let e=document.getElementById(`dateText`),t=[`Ocak`,`Şubat`,`Mart`,`Nisan`,`Mayıs`,`Haziran`],n=new Date(2026,0,1),r=new Date(2026,5,1),i=setInterval(()=>{n.setDate(n.getDate()+1),e.textContent=`${n.getDate()} ${t[n.getMonth()]} ${n.getFullYear()}`,n.getTime()>=r.getTime()&&(clearInterval(i),e.textContent=`1 Haziran 2026`)},15),a=document.getElementById(`loader`),o=document.querySelector(`.hero-content`),s=document.querySelectorAll(`.flower`);setTimeout(()=>{a.classList.add(`fade-out`),setTimeout(()=>{o.classList.add(`visible`),s.forEach(e=>e.classList.add(`show`))},500)},3e3);let c=document.getElementById(`giftBox`),l=document.getElementById(`revealSection`),u=document.getElementById(`extraSection`),d=document.querySelector(`.glass-card`);c.addEventListener(`click`,()=>{c.classList.add(`opened`),setTimeout(()=>{l.classList.remove(`hidden`),u.classList.remove(`hidden`),l.scrollIntoView({behavior:`smooth`}),setTimeout(()=>{d.classList.add(`visible`)},300)},1e3)});let f=document.querySelector(`.cake-container`),p=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&e.target.classList.add(`visible`)})},{threshold:.5});f&&p.observe(f),document.body.addEventListener(`click`,e=>{c.classList.contains(`opened`)&&!e.target.closest(`.gift-box`)&&m(e.clientX,e.clientY)});function m(e,t){let n=[`#ff758c`,`#ff7eb3`,`#f4d03f`,`#ffffff`];for(let r=0;r<15;r++){let r=document.createElement(`div`);r.style.position=`fixed`,r.style.left=e+`px`,r.style.top=t+`px`,r.style.width=Math.random()*10+5+`px`,r.style.height=Math.random()*10+5+`px`,r.style.backgroundColor=n[Math.floor(Math.random()*n.length)],r.style.borderRadius=Math.random()>.5?`50%`:`0`,r.style.pointerEvents=`none`,r.style.zIndex=`1000`,document.body.appendChild(r);let i=Math.random()*Math.PI*2,a=50+Math.random()*50,o=Math.cos(i)*a,s=Math.sin(i)*a-50;r.animate([{transform:`translate(0, 0) rotate(0deg)`,opacity:1},{transform:`translate(${o}px, ${s}px) rotate(${Math.random()*360}deg)`,opacity:1,offset:.8},{transform:`translate(${o}px, ${s+100}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:1e3+Math.random()*500,easing:`cubic-bezier(0,0,0.2,1)`}).onfinish=()=>r.remove()}}});
+document.addEventListener('DOMContentLoaded', () => {
+  const lateScreen = document.getElementById('lateScreen');
+  const startAnywayBtn = document.getElementById('startAnywayBtn');
+  const dateText = document.getElementById('dateText');
+  const loader = document.getElementById('loader');
+  const heroContent = document.querySelector('.hero-content');
+  const flowers = document.querySelectorAll('.flower');
+  const monthNames = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran"];
+
+  // Wait for button click
+  startAnywayBtn.addEventListener('click', () => {
+    // Hide late screen
+    lateScreen.classList.add('fade-out');
+    
+    // Start Date Animation Logic AFTER late screen fades
+    setTimeout(() => {
+      let currentDate = new Date(2026, 0, 1); // 1 Ocak 2026
+      const targetDate = new Date(2026, 5, 1); // 1 Haziran 2026
+      
+      const dateInterval = setInterval(() => {
+        currentDate.setDate(currentDate.getDate() + 1); // Increment by 1 day
+        dateText.textContent = `${currentDate.getDate()} ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+        
+        if (currentDate.getTime() >= targetDate.getTime()) {
+          clearInterval(dateInterval);
+          dateText.textContent = `1 Haziran 2026`;
+        }
+      }, 15);
+
+      // Loader fade out logic
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+        setTimeout(() => {
+          heroContent.classList.add('visible');
+          flowers.forEach(flower => flower.classList.add('show'));
+        }, 500);
+      }, 3500);
+    }, 500); // short delay after late screen starts fading
+  });
+
+  // Gift Box Logic
+  const giftBox = document.getElementById('giftBox');
+  const revealSection = document.getElementById('revealSection');
+  const extraSection = document.getElementById('extraSection');
+  const glassCard = document.querySelector('.glass-card');
+
+  giftBox.addEventListener('click', () => {
+    giftBox.classList.add('opened');
+    setTimeout(() => {
+      revealSection.classList.remove('hidden');
+      extraSection.classList.remove('hidden');
+      revealSection.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        glassCard.classList.add('visible');
+      }, 300);
+    }, 1000);
+  });
+
+  // Scroll Reveal Logic for the Cake section
+  const cakeContainer = document.querySelector('.cake-container');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.5 });
+  if (cakeContainer) {
+    observer.observe(cakeContainer);
+  }
+
+  // Create Confetti
+  document.body.addEventListener('click', (e) => {
+    if (giftBox.classList.contains('opened') && !e.target.closest('.gift-box')) {
+      createConfetti(e.clientX, e.clientY);
+    }
+  });
+
+  function createConfetti(x, y) {
+    const colors = ['#ff758c', '#ff7eb3', '#f4d03f', '#ffffff'];
+    for (let i = 0; i < 15; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.left = x + 'px';
+      confetti.style.top = y + 'px';
+      confetti.style.width = Math.random() * 10 + 5 + 'px';
+      confetti.style.height = Math.random() * 10 + 5 + 'px';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      confetti.style.pointerEvents = 'none';
+      confetti.style.zIndex = '1000';
+      document.body.appendChild(confetti);
+
+      const angle = Math.random() * Math.PI * 2;
+      const velocity = 50 + Math.random() * 50;
+      const tx = Math.cos(angle) * velocity;
+      const ty = Math.sin(angle) * velocity - 50;
+
+      confetti.animate([
+        { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+        { transform: `translate(${tx}px, ${ty}px) rotate(${Math.random() * 360}deg)`, opacity: 1, offset: 0.8 },
+        { transform: `translate(${tx}px, ${ty + 100}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+      ], {
+        duration: 1000 + Math.random() * 500,
+        easing: 'cubic-bezier(0,0,0.2,1)',
+      }).onfinish = () => confetti.remove();
+    }
+  }
+});
