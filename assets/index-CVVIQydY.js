@@ -76,37 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Wait for button click
-  startAnywayBtn.addEventListener('click', () => {
-    // Hide late screen
-    lateScreen.classList.add('fade-out');
-    
-    // Start Date Animation Logic AFTER late screen fades
-    setTimeout(() => {
-      loader.classList.add('start-anim'); // TRIGGER CSS ANIMATIONS
-      
-      let currentDate = new Date(2026, 0, 1); // 1 Ocak 2026
-      const targetDate = new Date(2026, 5, 1); // 1 Haziran 2026
-      
-      const dateInterval = setInterval(() => {
-        currentDate.setDate(currentDate.getDate() + 1); // Increment by 1 day
-        dateText.textContent = `${currentDate.getDate()} ${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-        
-        if (currentDate.getTime() >= targetDate.getTime()) {
-          clearInterval(dateInterval);
-          dateText.textContent = `1 Haziran 2026`;
-        }
-      }, 15);
-
-      // Loader fade out logic
-      setTimeout(() => {
-        loader.classList.add('fade-out');
-        setTimeout(() => {
-          heroContent.classList.add('visible');
-          flowers.forEach(flower => flower.classList.add('show'));
-        }, 500);
-      }, 3500);
-    }, 500); // short delay after late screen starts fading
-  });
+  if (startAnywayBtn) {
+    startAnywayBtn.addEventListener('click', () => {
+      const privateMessage = document.getElementById('privateMessage');
+      if (privateMessage) {
+        privateMessage.style.display = 'block';
+      }
+      startAnywayBtn.style.display = 'none';
+    });
+  }
 
   // Gift Box Logic
   const giftBox = document.getElementById('giftBox');
